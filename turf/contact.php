@@ -9,29 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
     <link href="https://www.google.co.in/maps/place/Matunga+(W,+Joshi+Vadi,+Matunga+West,+Mumbai,+Maharashtra+400016/@19.0297991,72.8409587,17z/data=!3m1!4b1!4m5!3m4!1s0x3be7ced17c400001:0x79b653392188cef!8m2!3d19.0297991!4d72.8431474" rel="stylesheet">
     <script type="text/javascript"src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
-    <script type="text/javascript">
-      (function() {
-      emailjs.init("user_wh0y1MXJwXQz8hRUsOM8M");
-      })();
-    </script>
-    <script type="text/javascript">
-        function mailit() {
-            document.getElementById('contact-form').addEventListener('submit', function(event) {
-                event.preventDefault();
-                // generate a five digit number for the contact_number variable
-                this.contact_number.value = Math.random() * 100000 | 0;
-                if(emailjs.sendForm('contact_service', 'contact_form', this)){
-                  if(confirm('Message is sent thank you for sending message')){
-                    window.location.reload();  
-                  }
-                } else {
-                  if(confirm('Message is not sent pls try again')){
-                    window.location.reload();  
-                  }
-                }
-            });
-        }
-    </script>
+
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -83,11 +61,9 @@
             <li class="breadcrumb-item"><a href="index.php">Home</a></li>
             <li class="breadcrumb-item active">Contact Us</li>
           </ol>
-
           </div> 
         </div>
       </div>
-   
     </section>
 
 <section>
@@ -108,6 +84,7 @@
       <div class="col-md-6">
         <form class="needs-validation" novalidate id="contact-form" >
           <input type="hidden" name="contact_number">
+
           <div class="form-row">
             <div class="col-md-6 mb-3">
               <label for="validationCustom01">Your Name</label>
@@ -150,8 +127,35 @@
               </div>
             </div>
           </div>
-          <button class="btn btn-primary mb-4" type="submit" >Submit form</button>
+          <input type="submit" id="button" value="Send Form" class="btn btn-primary mb-4">
       </form>
+
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+
+      <script type="text/javascript">
+        emailjs.init('user_wh0y1MXJwXQz8hRUsOM8M')
+      </script>
+
+      <script type="text/javascript">
+        const btn = document.getElementById('button');
+        document.getElementById('contact-form').addEventListener('submit', function(event){event.preventDefault();
+         btn.value = 'Sending......';
+
+         const serviceID = 'contact_service';
+         const templateID = 'contact_form';
+
+         emailjs.sendForm(serviceID, templateID, this)
+          .then(() => {
+            btn.value = 'Send Email';
+            alert('Sent!');
+            window.location.reload();
+          }, (err) => {
+            btn.value = 'Send Email';
+            alert(JSON.stringify(err));
+            window.location.reload();
+          });
+      });
+      </script>
     </div>
               
         
@@ -185,17 +189,6 @@
       width="100%" height="400px" frameborder="0" style="border:0"></iframe>
     </div>
   </section>
-
-
-
-
-
-
-
-
-
-
-
 
 <footer class="full-footer">
     <div class="container">
